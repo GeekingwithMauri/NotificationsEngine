@@ -7,9 +7,9 @@ Ideally, we want to have our code completely dependency-free and preserve contro
 _NotificationsEngine_ centralizes the notifications SDKs and exposes them via facades.
 
 ## What's the point?
-Contracts expire, SDKs get deprecated and fees rises. These, just to mention a few, are valid reasons to change tracking vendors. 
+Contracts expire, SDKs get deprecated and fees rises. These, just to mention a few, are valid reasons to change notification vendors. 
 
-This is rather hard when our codebases are littered with direct SDKs implementations. _NotificationsEngine_ makes such processes painless by making their consumption behind a facade. This is why, whatever happens under the hood shall not concern our Tracking clients apps.
+This is rather hard when our codebases are littered with direct SDKs implementations. _NotificationsEngine_ makes such processes painless by making their consumption behind a facade. This is why, whatever happens under the hood shall not concern our Notification clients apps.
 
 ## Installation 
 ### Xcode 13
