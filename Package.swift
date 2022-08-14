@@ -10,13 +10,16 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "NotificationsEngine",
-            targets: ["NotificationsEngine"]),
+            targets: ["NotificationsEngine"]
+        ),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(name: "Firebase",
-                 url: "https://github.com/firebase/firebase-ios-sdk.git",
-                 .upToNextMajor(from: "8.10.0"))
+        .package(
+            name: "Firebase",
+            url: "https://github.com/firebase/firebase-ios-sdk.git",
+            .upToNextMajor(from: "8.10.0")
+        )
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -24,7 +27,9 @@ let package = Package(
         .target(
             name: "NotificationsEngine",
             dependencies: [
-                .product(name: "FirebaseMessaging", package: "Firebase"), "Localization"
-            ]),
+                .product(name: "FirebaseMessaging",
+                         package: "Firebase")
+            ]
+        ),
     ]
 )
