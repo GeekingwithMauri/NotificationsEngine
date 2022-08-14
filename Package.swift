@@ -27,13 +27,6 @@ let package = Package(
             name: "NotificationsEngine",
             dependencies: [
                 .product(name: "FirebaseMessaging", package: "Firebase"), "Localization"
-            ],
-            resources: [
-                // Process file in Sources/FeatureAdvertise/Resources/*
-                .process("Resources")
             ]),
-        .testTarget(
-            name: "NotificationsEngineTests",
-            dependencies: ["NotificationsEngine"]),
     ]
 )
