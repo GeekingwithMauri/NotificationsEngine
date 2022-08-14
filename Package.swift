@@ -5,7 +5,6 @@ import PackageDescription
 
 let package = Package(
     name: "NotificationsEngine",
-    defaultLocalization: "en",
     platforms: [.iOS(.v15)],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
@@ -15,7 +14,6 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(path: "../Localization/"),
         .package(name: "Firebase",
                  url: "https://github.com/firebase/firebase-ios-sdk.git",
                  .upToNextMajor(from: "8.10.0"))
