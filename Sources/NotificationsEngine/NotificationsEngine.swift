@@ -17,16 +17,23 @@ public final class NotificationsEngineCenter: NSObject {
     /// Notification's name to be hooked in. This will be triggered once the app is in an active state in the foreground
     public static let notificationReminder: NSNotification.Name = NSNotification.Name("notificationReminder")
 
+    /// Called with the latest FCM registration token — on first registration and on every refresh. `nil` means the token was invalidated.
+    ///
+    /// Set it before `initialSetupShouldItBeNeeded()` / `requestUserPermission(completionHandler:)` so the initial token isn't missed.
+    public var onRegistrationToken: ((String?) -> Void)?
+
     /// Default init
     /// - Parameters:
     ///   - remoteNotificationCenter: app's remote notification center. Defaults to the `.current()`
     ///   - notificationCenter: vanilla notification center instance to be injected. Defaults to the `.current`
     ///   - userDidInteractWithGameReminder: flag that sets whether the user interacted or not with a notification received. Defaults to the `false`
     ///   - application: app's `UIApplication` instance reference. This is usually accessed in the AppDelegate as `UIApplication.shared`
-    public init(remoteNotificationCenter: UNUserNotificationCenter = .current(),
-                notificationCenter: NotificationCenter = .default,
-                userDidInteractReminder: Bool = false,
-                application: UIApplication) {
+    public init(
+        remoteNotificationCenter: UNUserNotificationCenter = .current(),
+        notificationCenter: NotificationCenter = .default,
+        userDidInteractReminder: Bool = false,
+        application: UIApplication
+    ) {
         self.remoteNotificationCenter = remoteNotificationCenter
         self.notificationCenter = notificationCenter
         self.userDidInteractWithReminder = userDidInteractReminder
@@ -101,9 +108,11 @@ private extension NotificationsEngineCenter {
 }
 
 extension NotificationsEngineCenter: UNUserNotificationCenterDelegate {
-    public func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                       didReceive response: UNNotificationResponse,
-                                       withCompletionHandler completionHandler: @escaping () -> Void) {
+    public func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
         logRemoteInfo(basedOn: response.notification)
 
         userDidInteractWithReminder = true
@@ -111,4 +120,11 @@ extension NotificationsEngineCenter: UNUserNotificationCenterDelegate {
     }
 }
 
-extension NotificationsEngineCenter: MessagingDelegate {}
+extension NotificationsEngineCenter: MessagingDelegate {
+    public func messaging(
+        _ messaging: Messaging,
+        didReceiveRegistrationToken fcmToken: String?
+    ) {
+        onRegistrationToken?(fcmToken)
+    }
+}
