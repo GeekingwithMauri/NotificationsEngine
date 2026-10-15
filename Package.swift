@@ -16,7 +16,6 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(
-            name: "Firebase",
             url: "https://github.com/firebase/firebase-ios-sdk.git",
             .upToNextMajor(from: "12.0.0")
         )
@@ -31,7 +30,7 @@ let package = Package(
             dependencies: [
                 .product(
                     name: "FirebaseMessaging",
-                    package: "Firebase"
+                    package: "firebase-ios-sdk"
                 )
             ],
             swiftSettings: [.swiftLanguageMode(.v5)]
