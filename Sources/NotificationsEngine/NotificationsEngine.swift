@@ -81,7 +81,7 @@ public final class NotificationsEngineCenter: NSObject {
     ///
     /// Regardless of the case, it **always** resets the app's badge count to `0`.
     public func executeQueuedActionShouldItExist() {
-        application.applicationIconBadgeNumber = 0
+        remoteNotificationCenter.setBadgeCount(0)
 
         guard userDidInteractWithReminder else {
             return
