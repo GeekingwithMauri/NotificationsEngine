@@ -83,10 +83,20 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     remoteNotificationEngine?.executeQueuedActionShouldItExist()
   }
   
-  // Register method to interact with received notification from queued action
-  func processNotification() {
+  // Register method to interact with received notification from queued action.
+  // `notification.userInfo` is the tapped notification's payload.
+  @objc func processNotification(_ notification: Notification) {
     // Do whatever we need with the action received.
   }
+}
+```
+
+A notification that arrives while the app is in the foreground is not shown unless the host asks for it:
+
+```swift
+remoteNotificationEngine.onForegroundNotification = { userInfo in
+  // Return [] to keep it silent (the default when this is nil).
+  [.banner, .sound]
 }
 ```
 
